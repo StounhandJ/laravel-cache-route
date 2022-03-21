@@ -26,9 +26,6 @@ class CacheRoteMiddleware
      */
     public function handle(Request $request, Closure $next, ...$ttl)
     {
-        if (!$this->okToCache($request)) {
-            return $next($request);
-        }
         $this->request = $request;
         $this->cacheKey = $this->makeCacheKey($request->fullUrl());
         $this->ttl = $this->getCacheTTL($ttl);
@@ -41,20 +38,6 @@ class CacheRoteMiddleware
             return (int)$args[0];
 
         return env('CACHE_TTL', 10);
-    }
-
-    /**
-     * Never cache non-GET requests
-     * Do not cache if CACHE_ENABLED env variable is set to false
-     * @param $request
-     * @return bool
-     */
-    protected function okToCache($request): bool
-    {
-        if (!$request->isMethod('get')) {
-            return false;
-        }
-        return env('CACHE_ENABLED', true);
     }
 
     /**
