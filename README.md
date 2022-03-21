@@ -1,59 +1,48 @@
 # Cache contents of entire route in Laravel
-This is a Laravel 5.0+/PHP 5.4+ package that caches the response to an entire "get" request in the cache so subsequent requests to the same url are speeded up substantially. 
+This is the Laravel 7.0+ / PHP 7.2+ package, which provides the ability to cache routes for the allotted time.
 
 ## Installation
-Every effort has been made to insure that the package is extremely easy to install and use. After you "require" the package, you are ready to use it! There is no need for setting up service providers, facades, config files etc. 
-``` bash
-$ composer require mnshankar/laravel-cache-route
+
+```
+$ composer require stounhandj/laravel-cache-route
+```
+Or
+```json
+{
+    "require": {
+        "stounhandj/laravel-cache-route": "^v1.1"
+    }
+}
 ```
 ## Usage
-Edit your http kernel.php file to include the package like so:
-```bash
-'cache.route'=>'mnshankar\Cache\Middleware\CacheRoute',
+Add middleware to the file kernel.php:
+```php
+'cache.page' => \StounhandJ\LaravelCacheRoute\Middleware\CacheRoteMiddleware::class,
 ```
-Now, use the middleware to cache the HTML output of an entire page either from the controller or from your route like so:
+Now, use the middleware to cache the HTML output of an entire page from your route like so:
 
-1. In your controller:
-    ```php
-    function __construct()
-    {
-        $this->middleware('cache.route');
-    }
-    ```
-2. In your route:
+1. In your route:
 
-   Using Laravel 5.0
-   ```php
-   Route::get('my/page', ['middleware' => 'cache-route', function()
-   {
-       //
-   }]);
-   ```
-   Using Laravel 5.1+
-   
-   You can continue using Laravel 5.0 style.. or use chaining:
    ```php
    Route::get('/', function () {
-       //
-   })->middleware(['cache-route']);
+        //
+   })->middleware("cache.page")
    ```
-   
+
    You may also use route groups. Please look up Laravel documentation on Middleware to learn more
-   https://laravel.com/docs/5.2/middleware
+   [here](https://laravel.com/docs/7.x/middleware)
 ## Configuration Options
-Two configuration options (set via env parameters) are used by the package
-1. Cache TTL (Time-To-Live):
-
-   CACHE_TTL=30
-    
-   This parameter specifies a cache ttl value of 30 minutes
-    
-   Note that you can always use php artisan cache:flush to clear your application cache
-2. Enable Cache (defaults to true):
-
-   CACHE_ENABLE=false
-    
-   This parameter can be used to turn off caching
+You can configure the TTL (Time-To-Live) to cast per second:
+1. In your route:
+   ```php
+   Route::get('/', function () {
+        //
+   })->middleware("cache.page:10")
+   ```
+2. Environment (On all routes at once):
+    ```env
+    CACHE_TTL=10
+    ```
    
 ## Thoughts
 Be VERY cautions when using a whole page cache such as this. Remember contents of the cache are visible to ALL your users. 
