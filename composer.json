@@ -1,20 +1,35 @@
 {
-     "name": "mnshankar/laravel-cache-route",
-     "description": "Cache (HTML) output of entire route to speedup your Laravel application",
-     "license": "MIT",
-     "authors": [
-          {
-               "name": "Shankar Manamalkav",
-               "email": "mnshankar@gmail.com"
-          }
-     ],
-     "require": {
-          "php": ">=5.4.0",
-          "illuminate/support": ">=5.0"
-     },
-     "autoload": {
-          "psr-4": {
-               "mnshankar\\Cache\\": "src"
-          }
-     }
+  "name": "stounhandj/laravel-cache-route",
+  "description": "Cache (HTML) output of entire route to speedup your Laravel application",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Roman Marinichev",
+      "email": "rmarinicev@gmail.com"
+    },
+    {
+      "name": "Shankar Manamalkav",
+      "email": "mnshankar@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.2 || ^8.0",
+    "laravel/framework": "^7.0|^8.0|^9.0",
+    "illuminate/contracts": "^6.9|^7.0|^8.0|^9.0",
+    "illuminate/support": ">=6.0",
+    "illuminate/http": ">=6.0"
+  },
+  "autoload": {
+        "psr-4": {
+            "StounhandJ\\LaravelCacheRoute\\": "src/"
+        }
+    },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "StounhandJ\\Cache\\CacheRoteProvider"
+      ]
+    }
+  }
 }
