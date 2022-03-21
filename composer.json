@@ -28,7 +28,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "StounhandJ\\Cache\\CacheRoteProvider"
+        "StounhandJ\\LaravelCacheRoute\\CacheRoteProvider"
       ]
     }
   }
