@@ -1,4 +1,9 @@
 # Cache contents of entire route in Laravel
+<p align="center">
+<a href="https://packagist.org/packages/stounhandj/laravel-cache-route"><img src="https://img.shields.io/packagist/dt/stounhandj/laravel-cache-route" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/stounhandj/laravel-cache-route"><img src="https://img.shields.io/packagist/v/stounhandj/laravel-cache-route" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/stounhandj/laravel-cache-route"><img src="https://img.shields.io/packagist/l/stounhandj/laravel-cache-route" alt="License"></a>
+</p>
 This is the Laravel 7.0+ / PHP 7.2+ package, which provides the ability to cache routes for the allotted time.
 
 ## Installation
