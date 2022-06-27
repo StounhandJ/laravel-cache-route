@@ -59,9 +59,13 @@ class CacheRoteMiddleware
         if (!Cache::store("memcached")->has($this->cacheKey)) {
             $response = $next($this->request);
             $this->storeInCache($this->cacheKey, $response->getContent(), $this->ttl);
+            $this->storeInCache($this->cacheKey.".headers", $response->headers, $this->ttl+5);
             return $response;
         }
-        return new Response(Cache::store("memcached")->get($this->cacheKey));
+
+        $response = new Response($this->valueInCache($this->cacheKey));
+        $response->headers = $this->valueInCache($this->cacheKey.".headers");
+        return $response;
     }
 
 
@@ -75,6 +79,21 @@ class CacheRoteMiddleware
     {
         try {
             Cache::store("memcached")->put($cacheKey, $pageContents, $ttl);
+        } catch (Exception $ex) {
+            throw new Exception('Sorry. Response could not be cached.');
+        }
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     * @throws InvalidArgumentException
+     * @throws Exception
+     */
+    protected function valueInCache($key)
+    {
+        try {
+            return Cache::store("memcached")->get($key);
         } catch (Exception $ex) {
             throw new Exception('Sorry. Response could not be cached.');
         }
